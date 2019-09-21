@@ -18,7 +18,7 @@ router.get('/',(req,res)=>{
 // @access Public
 router.post('/',(req,res)=>{
     const newitem = new Item({
-        item: req.body.name
+        item: req.body.item
     });          
                
     newitem.save()
