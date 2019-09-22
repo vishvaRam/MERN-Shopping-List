@@ -12,6 +12,9 @@ import {
 } from "@material-ui/core";
 import { Delete, Add } from "@material-ui/icons";
 import uuid from "uuid";
+import { getItems,deleteItem } from "../action/itemAction";
+import { connect } from "react-redux";
+import PropTypes from "prop-types";
 
 const styles = {
   ListTitle: {
@@ -46,19 +49,13 @@ const styles = {
 };
 
 class ShoppingList extends Component {
-  state = {
-    items: [
-      { id: uuid(), item: "Eggs" },
-      { id: uuid(), item: "Milk" },
-      { id: uuid(), item: "Vegetables" },
-      { id: uuid(), item: "Soap" }
-    ]
-  };
+
+  componentDidMount(){
+    this.props.getItems();
+  }
 
   handleOnDelete = id => {
-    this.setState(state=>({
-      items: state.items.filter(item =>item.id !== id)
-    }))
+    this.props.deleteItem(id);
   };
 
   // viewer = () => {
@@ -113,13 +110,13 @@ class ShoppingList extends Component {
     var inputPrompt = prompt("enter the item");
     if (inputPrompt) {
       this.setState(state => ({
-        items: [{ id: uuid(),item: inputPrompt },...state.items]
+        items: [{ id: uuid(), item: inputPrompt }, ...state.items]
       }));
     }
   };
 
   render() {
-    const { items } = this.state;
+    const { items } = this.props.itemObject;
     return (
       <React.Fragment>
         <Container maxWidth="md" style={styles.FromAppBar}>
@@ -127,18 +124,18 @@ class ShoppingList extends Component {
             Add Item
           </Typography>
           <Box component="span" style={styles.InputForm}>
-              <Fab
-                variant="extended"
-                size="medium"
-                color="primary"
-                aria-label="add"
-                type="submit"
-                onClick={this.handleOnClick}
-                style={{ marginLeft: "20px" }}
-              >
-                <Add />
-                Add Item
-              </Fab>
+            <Fab
+              variant="extended"
+              size="medium"
+              color="primary"
+              aria-label="add"
+              type="submit"
+              onClick={this.handleOnClick}
+              style={{ marginLeft: "20px" }}
+            >
+              <Add />
+              Add Item
+            </Fab>
           </Box>
           <Typography variant="h5" color="inherit" style={styles.ListTitle}>
             List
@@ -170,18 +167,16 @@ class ShoppingList extends Component {
   }
 }
 
-// ShoppingList.propTypes = {
-//   getItems: PropTypes.func.isRequired,
-//   itemObject: PropTypes.object.isRequired
-// };
+ShoppingList.propTypes ={
+  getItems: PropTypes.func.isRequired,
+  itemObject: PropTypes.object.isRequired
+}
 
-// const mapStateToProps = state => ({
-//   itemObject: state.itemObject
-// });
+const mapStateToProps = state => ({
+  itemObject: state.itemObject
+});
 
-// export default connect(
-//   mapStateToProps,
-//   { getItems, deleteItem }
-// )(ShoppingList);
-
-export default ShoppingList;
+export default connect(
+  mapStateToProps,
+  { getItems,deleteItem }
+)(ShoppingList);
