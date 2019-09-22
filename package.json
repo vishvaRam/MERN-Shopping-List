@@ -3,6 +3,10 @@
   "version": "1.0.0",
   "description": "MERN Stack react app",
   "main": "server.js",
+  "engines": {
+    "npm":"6.9.0",
+    "node":"v12.1.0"
+  },
   "scripts": {
     "client-install": "npm i --prefix client",
     "server": "nodemon server.js",
