@@ -18,6 +18,12 @@ export default function(state = initialState, action) {
         ...state
       };
 
+    case "ADD_ITEM":
+        return {
+            ...state,
+            items:[action.payload,...state.items]
+        }
+
     case "DELETE_ITEM":
       return {
         ...state,

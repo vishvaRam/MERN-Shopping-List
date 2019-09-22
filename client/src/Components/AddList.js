@@ -1,8 +1,9 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import { addItem } from "../actions/itemAction";
+import { addItem } from "../action/itemAction";
 import { Add } from "@material-ui/icons";
 import { Fab, Box, Typography, TextField } from "@material-ui/core";
+import uuid from 'uuid';
 
 class AddList extends Component {
   state = {
@@ -13,9 +14,10 @@ class AddList extends Component {
   };
 
   handleOnClick = e => {
-    e.preventDefault();  
+    e.preventDefault();
     if (this.state.name.length !== 0) {
       var newItem = {
+        id:uuid(),
         item: this.state.name
       };
       this.props.addItem(newItem);
@@ -39,8 +41,7 @@ class AddList extends Component {
             type="text"
             variant="standard"
             onChange={this.onChange}
-            style={{marginRight:"20px",
-          marginBottom:"20px"}}
+            style={{ marginRight: "20px", marginBottom: "20px" }}
           ></TextField>
           <Fab
             variant="extended"
@@ -49,7 +50,7 @@ class AddList extends Component {
             aria-label="add"
             type="submit"
             onClick={this.handleOnClick}
-            style={{marginLeft:"20px"}}
+            style={{ marginLeft: "20px" }}
           >
             <Add />
             Add Item

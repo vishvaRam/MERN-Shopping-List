@@ -12,9 +12,10 @@ import {
 } from "@material-ui/core";
 import { Delete, Add } from "@material-ui/icons";
 import uuid from "uuid";
-import { getItems,deleteItem } from "../action/itemAction";
+import { getItems, deleteItem } from "../action/itemAction";
 import { connect } from "react-redux";
 import PropTypes from "prop-types";
+import AddList from "./AddList";
 
 const styles = {
   ListTitle: {
@@ -49,8 +50,7 @@ const styles = {
 };
 
 class ShoppingList extends Component {
-
-  componentDidMount(){
+  componentDidMount() {
     this.props.getItems();
   }
 
@@ -106,37 +106,12 @@ class ShoppingList extends Component {
   //   }
   // };
 
-  handleOnClick = e => {
-    var inputPrompt = prompt("enter the item");
-    if (inputPrompt) {
-      this.setState(state => ({
-        items: [{ id: uuid(), item: inputPrompt }, ...state.items]
-      }));
-    }
-  };
-
   render() {
     const { items } = this.props.itemObject;
     return (
       <React.Fragment>
         <Container maxWidth="md" style={styles.FromAppBar}>
-          <Typography variant="h5" color="inherit" style={styles.ListTitle}>
-            Add Item
-          </Typography>
-          <Box component="span" style={styles.InputForm}>
-            <Fab
-              variant="extended"
-              size="medium"
-              color="primary"
-              aria-label="add"
-              type="submit"
-              onClick={this.handleOnClick}
-              style={{ marginLeft: "20px" }}
-            >
-              <Add />
-              Add Item
-            </Fab>
-          </Box>
+          <AddList styles={styles} />
           <Typography variant="h5" color="inherit" style={styles.ListTitle}>
             List
           </Typography>
@@ -167,10 +142,10 @@ class ShoppingList extends Component {
   }
 }
 
-ShoppingList.propTypes ={
+ShoppingList.propTypes = {
   getItems: PropTypes.func.isRequired,
   itemObject: PropTypes.object.isRequired
-}
+};
 
 const mapStateToProps = state => ({
   itemObject: state.itemObject
@@ -178,5 +153,5 @@ const mapStateToProps = state => ({
 
 export default connect(
   mapStateToProps,
-  { getItems,deleteItem }
+  { getItems, deleteItem }
 )(ShoppingList);
