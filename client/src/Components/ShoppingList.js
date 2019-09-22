@@ -34,11 +34,6 @@ const styles = {
     marginLeft: "20px",
     marginRight: "10px"
   },
-  InputForm: {
-    marginTop: "10px",
-    marginLeft: "20px",
-    marginRight: "10px"
-  },
   containerMargin: {
     marginBottom: "50px"
   },

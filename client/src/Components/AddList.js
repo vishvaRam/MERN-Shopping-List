@@ -32,27 +32,30 @@ class AddList extends Component {
         >
           Add Item
         </Typography>
-        <Box component="span" style={this.props.styles.InputForm}>
-          <TextField
-            id="addItem"
-            name="name"
-            type="text"
-            variant="standard"
-            onChange={this.onChange}
-            style={{ marginRight: "20px", marginBottom: "20px" }}
-          ></TextField>
-          <Fab
-            variant="extended"
-            size="medium"
-            color="primary"
-            aria-label="add"
-            type="submit"
-            onClick={this.handleOnClick}
-            style={{ marginLeft: "20px" }}
-          >
-            <Add />
-            Add Item
-          </Fab>
+        <Box component="div" style={{marginLeft:"20px"}}>
+          <form onSubmit={this.handleOnClick}>
+            <TextField
+              id="addItem"
+              name="name"
+              type="text"
+              variant="standard"
+              margin="dense"
+              onChange={this.onChange}
+              style={{ marginRight: "20px", marginBottom: "20px" }}
+            ></TextField>
+            <Fab
+              variant="extended"
+              size="medium"
+              color="primary"
+              aria-label="add"
+              type="submit"
+              onClick={this.handleOnClick}
+              style={{ paddingLeft: "10px" }}
+            >
+              <Add />
+              Add Item
+            </Fab>
+          </form>
         </Box>
       </React.Fragment>
     );
