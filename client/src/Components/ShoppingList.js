@@ -7,11 +7,10 @@ import {
   ListItemText,
   Paper,
   IconButton,
-  Fab,
-  Box
+  Box,
+  CircularProgress
 } from "@material-ui/core";
-import { Delete, Add } from "@material-ui/icons";
-import uuid from "uuid";
+import { Delete } from "@material-ui/icons";
 import { getItems, deleteItem } from "../action/itemAction";
 import { connect } from "react-redux";
 import PropTypes from "prop-types";
@@ -58,56 +57,55 @@ class ShoppingList extends Component {
     this.props.deleteItem(id);
   };
 
-  // viewer = () => {
-  //   const { loading } = this.props.itemObject;
-  //   if (loading) {
-  //     return (
-  //       <React.Fragment>
-  //         <Box style={{ margin: "auto", textAlign: "center" }}>
-  //           <CircularProgress size={40} />
-  //         </Box>
-  //       </React.Fragment>
-  //     );
-  //   } else {
-  //     const { items } = this.props.itemObject;
+  viewer = () => {
+    const { loading } = this.props.itemObject;
+    if (loading) {
+      return (
+        <React.Fragment>
+          <Box style={{ margin: "auto", textAlign: "center" }}>
+            <CircularProgress size={40} />
+          </Box>
+        </React.Fragment>
+      );
+    } else {
+      const { items } = this.props.itemObject;
 
-  //     if (items.length === 0) {
-  //       return (
-  //         <Box
-  //           fontWeight="regular"
-  //           style={{ margin: "auto", textAlign: "center" }}
-  //         >
-  //           <Typography style={styles.Font}>Add Item !!!</Typography>
-  //         </Box>
-  //       );
-  //     } else {
-  //       return (
-  //         <Paper>
-  //           {items.map(maping => (
-  //             <List key={maping._id}>
-  //               <ListItem button divider>
-  //                 <ListItemText>
-  //                   <Typography style={styles.ItemFont}>
-  //                     {maping.item}
-  //                   </Typography>
-  //                 </ListItemText>
-  //                 <IconButton
-  //                   aria-label="delete"
-  //                   onClick={this.handleOnDelete.bind(this, maping._id)}
-  //                 >
-  //                   <Delete color="error" fontSize="inherit" />
-  //                 </IconButton>
-  //               </ListItem>
-  //             </List>
-  //           ))}
-  //         </Paper>
-  //       );
-  //     }
-  //   }
-  // };
+      if (items.length === 0) {
+        return (
+          <Box
+            fontWeight="regular"
+            style={{ margin: "auto", textAlign: "center" }}
+          >
+            <Typography style={styles.Font}>Add Item !!!</Typography>
+          </Box>
+        );
+      } else {
+        return (
+          <Paper>
+            {items.map(maping => (
+              <List key={maping._id}>
+                <ListItem button divider>
+                  <ListItemText>
+                    <Typography style={styles.ItemFont}>
+                      {maping.item}
+                    </Typography>
+                  </ListItemText>
+                  <IconButton
+                    aria-label="delete"
+                    onClick={this.handleOnDelete.bind(this, maping._id)}
+                  >
+                    <Delete color="error" fontSize="inherit" />
+                  </IconButton>
+                </ListItem>
+              </List>
+            ))}
+          </Paper>
+        );
+      }
+    }
+  };
 
   render() {
-    const { items } = this.props.itemObject;
     return (
       <React.Fragment>
         <Container maxWidth="md" style={styles.FromAppBar}>
@@ -116,25 +114,7 @@ class ShoppingList extends Component {
             List
           </Typography>
           <Container maxWidth="md" style={styles.containerMargin}>
-            <Paper>
-              {items.map(maping => (
-                <List key={maping.id}>
-                  <ListItem button divider>
-                    <ListItemText>
-                      <Typography style={styles.ItemFont}>
-                        {maping.item}
-                      </Typography>
-                    </ListItemText>
-                    <IconButton
-                      aria-label="delete"
-                      onClick={this.handleOnDelete.bind(this, maping.id)}
-                    >
-                      <Delete color="error" fontSize="inherit" />
-                    </IconButton>
-                  </ListItem>
-                </List>
-              ))}
-            </Paper>
+           {this.viewer()}
           </Container>
         </Container>
       </React.Fragment>

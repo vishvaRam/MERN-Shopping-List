@@ -22,7 +22,7 @@ router.post('/',(req,res)=>{
     });          
                
     newitem.save()
-    .then(item =>res.json({meg:"success"}))
+    .then(item =>res.json(item))
     .catch(err=> console.log(err));
 })
 
